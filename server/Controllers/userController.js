@@ -46,7 +46,7 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { email } = req.body;
   try {
-    let user = await userModel.findOne({ email });
+    let user = await userModel.findOne({ email }, "first_name last_name email");
 
     if (!user)
       return res
@@ -54,11 +54,29 @@ const loginUser = async (req, res) => {
         .json("We dont find this email in our database. Please Register First");
 
     const token = createToken(user._id);
-    res.status(200).json({ _id: user._id, email, token });
+    res.status(200).json({
+      _id: user._id,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      email,
+      token,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 };
 
-module.exports = { registerUser, loginUser };
+const findUser = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await userModel.findById(userId);
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { registerUser, loginUser, findUser };
