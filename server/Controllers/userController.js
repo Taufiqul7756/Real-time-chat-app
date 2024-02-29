@@ -43,4 +43,22 @@ const registerUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { email } = req.body;
+  try {
+    let user = await userModel.findOne({ email });
+
+    if (!user)
+      return res
+        .status(400)
+        .json("We dont find this email in our database. Please Register First");
+
+    const token = createToken(user._id);
+    res.status(200).json({ _id: user._id, email, token });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+};
+
 module.exports = { registerUser, loginUser };
