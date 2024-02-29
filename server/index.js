@@ -1,13 +1,19 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
+const userRoute = require("./Routes/userRoute");
 
 const app = express();
+require("dotenv").config();
 
 //Middleware Functions
 app.use(express.json());
 app.use(cors());
+app.use("/api/users", userRoute);
+
+app.get("/", (req, res) => {
+  res.send("Welcome to Chat App API's");
+});
 
 const port = process.env.PORT || 5000;
 const uri = process.env.DATABASE_URI;
