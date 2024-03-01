@@ -1,49 +1,73 @@
-import { useForm } from "react-hook-form";
+import { useContext } from "react";
+import { Alert, Button, Col, Form, Row, Stack } from "react-bootstrap";
+import { AuthContext } from "../context/AuthContext";
 
-const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+const Login = () => {
+  const { loginInfo, updateLoginInfo, loginUser, loginError, isLoginLoading } =
+    useContext(AuthContext);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-md mx-auto mt-8 p-4 border rounded-lg shadow-lg"
-    >
-      <h2 className="text-2xl font-bold mb-4">Register</h2>
-
-      <div className="mb-4">
-        <label
-          htmlFor="email"
-          className="block text-gray-700 font-semibold mb-2"
+    <>
+      <Form onSubmit={loginUser}>
+        <Row
+          style={{
+            height: "100vh",
+            justifyContent: "center",
+            paddingTop: "20%",
+          }}
         >
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          {...register("email", { required: "Email is required" })}
-          className="form-input text-black bg-gray-100 border-2 border-gray-300 focus:outline-none focus:border-blue-500 w-full"
-        />
-        {errors.email && (
-          <span className="text-red-500">{errors.email.message}</span>
-        )}
-      </div>
+          <Col xs={6}>
+            <Stack gap={3}>
+              <h2>Login</h2>
 
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-      >
-        Login
-      </button>
-    </form>
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                onChange={(e) =>
+                  updateLoginInfo({ ...loginInfo, email: e.target.value })
+                }
+                value={loginInfo.email}
+              />
+              {/* <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) =>
+                  updateLoginInfo({
+                    ...loginInfo,
+                    password: e.target.value,
+                  })
+                }
+                value={loginInfo.password}
+              /> */}
+              <Button variant="primary" type="submit" disabled={isLoginLoading}>
+                {isLoginLoading ? "Getting you in..." : "Login"}
+              </Button>
+
+              {loginError?.error && (
+                <Alert variant="danger">
+                  <b>{`Error status code: ${loginError?.status}`}</b>
+                  <p>{loginError?.message}</p>
+                </Alert>
+              )}
+            </Stack>
+          </Col>
+        </Row>
+      </Form>
+
+      <div>
+        <h5>taufiqulislam.official@gmail.com</h5>
+        <h5>Diu123456789@</h5>
+      </div>
+      <div>
+        <h5>monirulislam.official@gmail.com</h5>
+        <h5>Diu123456789@</h5>
+      </div>
+      <div>
+        <h5>test.official@gmail.com</h5>
+        <h5>Diu123456789@</h5>
+      </div>
+    </>
   );
 };
 
-export default LoginForm;
+export default Login;
