@@ -26,19 +26,8 @@ const Login = () => {
                 onChange={(e) =>
                   updateLoginInfo({ ...loginInfo, email: e.target.value })
                 }
-                value={loginInfo.email}
               />
-              {/* <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) =>
-                  updateLoginInfo({
-                    ...loginInfo,
-                    password: e.target.value,
-                  })
-                }
-                value={loginInfo.password}
-              /> */}
+
               <Button variant="primary" type="submit" disabled={isLoginLoading}>
                 {isLoginLoading ? "Getting you in..." : "Login"}
               </Button>
