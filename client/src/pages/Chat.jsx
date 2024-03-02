@@ -7,6 +7,7 @@ import { Container, Stack } from "react-bootstrap";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import UserChat from "../components/Chat/UserChat";
+import PotentialChats from "../components/Chat/PotentialChats";
 
 const Chat = () => {
   const { user } = useContext(AuthContext);
@@ -16,6 +17,7 @@ const Chat = () => {
 
   return (
     <Container>
+      <PotentialChats />
       {userChats?.length < 1 ? null : (
         <div className="flex flex-col md:flex-row">
           <div className="flex-grow-0 pe-3">
