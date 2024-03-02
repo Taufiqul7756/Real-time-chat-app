@@ -20,7 +20,9 @@ const UserChat = ({ chat, user }) => {
           <img src={avatar} height="35px" width="35px" alt="" />
         </div>
         <div className="text-content">
-          <div className="name">{recipientUser?.first_name}</div>
+          <div className="name">
+            {recipientUser?.first_name} {recipientUser?.last_name}{" "}
+          </div>
           <div className="text"> Test Messages </div>
         </div>
       </div>
