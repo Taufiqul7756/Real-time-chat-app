@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // import PropTypes from "prop-types";
-import { createContext, useState, useEffect } from "react";
-import { baseUrl, getRequest } from "../utils/services";
+import { createContext, useState, useEffect, useCallback } from "react";
+import { baseUrl, getRequest, postRequest } from "../utils/services";
 
 export const ChatContext = createContext();
 
@@ -56,6 +56,20 @@ export const ChatContextProvider = ({ children, user }) => {
     getUserChats();
   }, [user]);
 
+  const createChat = useCallback(async (firstId, secondId) => {
+    const response = await postRequest(
+      `${baseUrl}/chats`,
+      JSON.stringify({
+        firstId,
+        secondId,
+      })
+    );
+    if (response.error) {
+      return console.log("Error creating Chat", response);
+    }
+    setUserChats((prev) => [...prev, response]);
+  });
+
   return (
     <ChatContext.Provider
       value={{
@@ -63,6 +77,7 @@ export const ChatContextProvider = ({ children, user }) => {
         isUserChatsLoading,
         userChatsError,
         potentialChats,
+        createChat,
       }}
     >
       {children}
