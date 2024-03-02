@@ -43,3 +43,5 @@ export const getRequest = async (url) => {
 
   return data;
 };
+
+// status: response.status,
