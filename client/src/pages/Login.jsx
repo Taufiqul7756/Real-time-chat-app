@@ -18,7 +18,9 @@ const Login = () => {
         >
           <Col xs={6}>
             <Stack gap={3}>
-              <h2>Login</h2>
+              <div className="flex justify-center font-bold text-xl">
+                <h2>Login</h2>
+              </div>
 
               <Form.Control
                 type="email"
