@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
+    "react-input-emoji": "^4.3.0",
     "react-router-dom": "^6.6.2"
   },
   "devDependencies": {
