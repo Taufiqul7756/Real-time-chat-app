@@ -12,7 +12,7 @@ const UserChat = ({ chat, user }) => {
     <Stack
       direction="horizontal"
       gap={3}
-      className="user-card align-items-center p-2 justify-content-between"
+      className=" user-card align-items-center p-2 justify-content-between"
       role="button"
     >
       <div className="d-flex">
@@ -27,7 +27,7 @@ const UserChat = ({ chat, user }) => {
         </div>
       </div>
 
-      <div className="d-flex flex-column align-items-end">
+      <div className=" d-flex flex-column align-items-end">
         <div className="date">12/12/24</div>
         <div className="this-user-notifications">2</div>
         <span className="user-online"></span>

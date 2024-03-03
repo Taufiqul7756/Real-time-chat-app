@@ -37,7 +37,8 @@ const ChatBox = () => {
   return (
     <Stack
       gap={4}
-      className="max-h-[calc(100vh-10rem)] min-w-[calc(100vh-10rem)] overflow-y-auto bg-gray-500 rounded-lg"
+      className="  max-h-[calc(100vh-10rem)] min-w-[calc(100vh-rem)]
+      md:min-w-[calc(100vh-rem)] lg:min-w-[calc(100vh-10rem)] overflow-y-auto bg-gray-500 rounded-lg"
     >
       <div className="flex items-center justify-center p-3 bg-gray-800">
         <strong>
@@ -66,7 +67,11 @@ const ChatBox = () => {
             </Stack>
           ))}
       </Stack>
-      <Stack direction="horizontal" className="chat-input flex-grow-0" gap={3}>
+      <Stack
+        direction="horizontal"
+        className="chat-input flex-grow-0  "
+        gap={3}
+      >
         <InputEmoji
           value={textMessage}
           onChange={setTextMessage}
@@ -74,7 +79,7 @@ const ChatBox = () => {
           borderColor="rgba(72, 112, 223, 0.2)"
         />
         <button
-          className="send-btn"
+          className="send-btn "
           onClick={() =>
             sendTextMessage(textMessage, user, currentChat._id, setTextMessage)
           }
@@ -84,7 +89,7 @@ const ChatBox = () => {
             width="16"
             height="16"
             fill="currentColor"
-            className="bi bi-send-fill"
+            className="bi bi-send-fill ml-2"
             viewBox="0 0 16 16"
           >
             <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z" />
