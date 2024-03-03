@@ -15,10 +15,9 @@ io.on("connection", (socket) => {
         userId,
         socketId: socket.id,
       });
+    console.log("Online users:", onlineUsers);
+    io.emit("getOnlineUsers", onlineUsers);
   });
-
-  console.log("Online users:", onlineUsers);
-  io.emit("getOnlineUsers", onlineUsers);
 
   socket.on("disconnect", () => {
     onlineUsers = onlineUsers.filter((user) => user.socketId !== socket.id);
