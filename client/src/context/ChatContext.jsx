@@ -4,6 +4,7 @@
 // import PropTypes from "prop-types";
 import { createContext, useState, useEffect, useCallback } from "react";
 import { baseUrl, getRequest, postRequest } from "../utils/services";
+import { io } from "socket.io-client";
 
 export const ChatContext = createContext();
 
@@ -18,8 +19,36 @@ export const ChatContextProvider = ({ children, user }) => {
   const [messagesError, setMessagesError] = useState(null);
   const [sendTextMessageError, setSendTextMessageError] = useState(null);
   const [newMessage, setNewMessage] = useState(null);
+  const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState("");
+
+  console.log("onlineUsers: ", onlineUsers);
 
   console.log("messages-----:", messages);
+  // initial Socket
+  useEffect(() => {
+    const newSocket = io("http://localhost:8080");
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [user]);
+
+  // add online users
+  useEffect(() => {
+    if (socket === null) return;
+    socket.emit("AddNewUser", user?._id);
+
+    socket.on("getOnlineUsers", (res) => {
+      setOnlineUsers(res);
+    });
+    return () => {
+      socket.off("getOnlineUsers");
+    };
+  }, [socket]);
+
+  // Get User
   useEffect(() => {
     const getUsers = async () => {
       const response = await getRequest(`${baseUrl}/users`);
@@ -137,6 +166,7 @@ export const ChatContextProvider = ({ children, user }) => {
         messagesError,
         currentChat,
         sendTextMessage,
+        onlineUsers,
       }}
     >
       {children}

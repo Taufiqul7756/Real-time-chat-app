@@ -1,12 +1,22 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 // import React from "react";
 
 import { Stack } from "react-bootstrap";
 import { useFetchRecipientUser } from "../../hooks/useFetchRecipent";
 import avatar from "../../assets/avarter.svg";
+import { ChatContext } from "../../context/ChatContext";
+import { useContext } from "react";
 
 // eslint-disable-next-line react/prop-types
 const UserChat = ({ chat, user }) => {
   const { recipientUser } = useFetchRecipientUser(chat, user);
+
+  const { onlineUsers } = useContext(ChatContext);
+
+  const isOnline = onlineUsers?.some(
+    (user) => user?.userId === recipientUser?._id
+  );
 
   return (
     <Stack
@@ -30,7 +40,7 @@ const UserChat = ({ chat, user }) => {
       <div className=" d-flex flex-column align-items-end">
         <div className="date">12/12/24</div>
         <div className="this-user-notifications">2</div>
-        <span className="user-online"></span>
+        <span className={isOnline ? "user-online" : ""}></span>
       </div>
     </Stack>
   );
