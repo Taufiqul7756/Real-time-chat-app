@@ -47,15 +47,12 @@ const Login = () => {
 
       <div>
         <h5>taufiqulislam.official@gmail.com</h5>
-        <h5>Diu123456789@</h5>
       </div>
       <div>
-        <h5>monirulislam.official@gmail.com</h5>
-        <h5>Diu123456789@</h5>
+        <h5>ridu@gmail.com</h5>
       </div>
       <div>
         <h5>test.official@gmail.com</h5>
-        <h5>Diu123456789@</h5>
       </div>
     </>
   );

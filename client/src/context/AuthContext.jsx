@@ -1,7 +1,11 @@
+/* eslint-disable no-undef */
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { createContext, useCallback, useState } from "react";
 import { baseUrl, postRequest } from "../utils/services";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -19,8 +23,9 @@ export const AuthContextProvider = ({ children }) => {
   const [isLoginLoading, setIsLoginLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
-    // password: "",
   });
+  const [justLoggedIn, setJustLoggedIn] = useState(false);
+  const [toastSource, setToastSource] = useState(null);
 
   console.log("User:", user);
   console.log("registerError:", registerError);
@@ -28,10 +33,32 @@ export const AuthContextProvider = ({ children }) => {
   console.log("loginError:", loginError);
   console.log("isLoginLoading:", isLoginLoading);
 
+  const showToast = useCallback((message) => {
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (user && justLoggedIn) {
+      console.log("Calling showToast");
+      if (toastSource === "login") {
+        showToast(`Welcome back, ${user.first_name}!`);
+      } else if (toastSource === "register") {
+        showToast(`Welcome, ${user.first_name}!`);
+      }
+    }
+  }, [user, showToast, justLoggedIn, toastSource]);
+
   useEffect(() => {
     const user = localStorage.getItem("User");
-
     setUser(JSON.parse(user));
+    setJustLoggedIn(false);
   }, []);
 
   const updateRegisterInfo = useCallback((info) => {
@@ -62,6 +89,8 @@ export const AuthContextProvider = ({ children }) => {
 
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
+      setJustLoggedIn(true);
+      setToastSource("register");
     },
     [registerInfo]
   );
@@ -86,6 +115,9 @@ export const AuthContextProvider = ({ children }) => {
 
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
+      setJustLoggedIn(true);
+
+      setToastSource("login");
     },
     [loginInfo]
   );
@@ -112,6 +144,7 @@ export const AuthContextProvider = ({ children }) => {
         logoutUser,
       }}
     >
+      <ToastContainer />
       {children}
     </AuthContext.Provider>
   );
