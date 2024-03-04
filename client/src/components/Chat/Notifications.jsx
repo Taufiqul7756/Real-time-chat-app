@@ -1,9 +1,29 @@
+/* eslint-disable no-unused-vars */
 // import React from "react";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ChatContext } from "../../context/ChatContext";
+import { AuthContext } from "../../context/AuthContext";
+import { unreadNotificationsFunc } from "../../utils/unreadNotifications";
 
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  const { notifications, userChats, allUsers } = useContext(ChatContext);
+
+  console.log("notifications:", notifications);
+
+  const unreadNotifications = unreadNotificationsFunc(notifications);
+  const modifiedNotifications = notifications.map((n) => {
+    const sender = allUsers.find((user) => user._id == n.senderId);
+
+    return {
+      ...n,
+      senderName: sender?.first_name,
+    };
+  });
+
   return (
     <div className="notifications">
       <div className="notification-icon" onClick={() => setIsOpen(!isOpen)}>
@@ -17,6 +37,11 @@ const Notifications = () => {
         >
           <path d="M2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
         </svg>
+        {unreadNotifications?.length === 0 ? null : (
+          <span className="notification-count">
+            <span>{unreadNotifications?.length}</span>
+          </span>
+        )}
       </div>
 
       {isOpen ? (
