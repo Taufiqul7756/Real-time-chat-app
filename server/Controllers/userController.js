@@ -22,8 +22,17 @@ const registerUser = async (req, res) => {
     if (!validator.isEmail(email))
       return res.status(400).json("Email must be Valid");
 
-    if (!validator.isStrongPassword(password))
-      return res.status(400).json("Password must be Strong");
+    if (!validator.isStrongPassword(password)) {
+      const errorMessage =
+        "Password must be Strong.\n" +
+        "At least,\n" +
+        "1. Upper case\n" +
+        "2. Lower case\n" +
+        "3. Number\n" +
+        "4. One special Character\n" +
+        "5. Length will be 8+";
+      return res.status(400).json(errorMessage);
+    }
 
     user = new userModel({ first_name, last_name, email, password });
 

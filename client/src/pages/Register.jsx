@@ -82,7 +82,7 @@ const Register = () => {
 
               {registerError?.error && (
                 <Alert variant="danger">
-                  <b>{`Error status code: ${registerError?.status}`}</b>
+                  {/* <b>{`Error status code: ${registerError?.status}`}</b> */}
                   <p>{registerError?.message}</p>
                 </Alert>
               )}
