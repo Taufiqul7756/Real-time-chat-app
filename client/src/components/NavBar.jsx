@@ -5,7 +5,6 @@ import Notifications from "./Chat/Notifications";
 
 const NavBar = () => {
   const { user, logoutUser } = useContext(AuthContext);
-  console.log("navbar --- user", user);
 
   return (
     <nav className="bg-gray-800 mb-4 h-16">
