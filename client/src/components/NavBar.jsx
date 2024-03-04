@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import Notifications from "./Chat/Notifications";
 
 const NavBar = () => {
   const { user, logoutUser } = useContext(AuthContext);
@@ -11,7 +12,7 @@ const NavBar = () => {
       <div className="container mx-auto flex items-center justify-between h-full px-4">
         <h2>
           <Link to="/" className="text-white text-lg font-bold">
-            ChattApp
+            Real time CHat App
           </Link>
         </h2>
 
@@ -23,13 +24,16 @@ const NavBar = () => {
         <div className="">
           {user && (
             <>
-              <Link
-                onClick={() => logoutUser()}
-                to="/login"
-                className="text-white text-md font-bold"
-              >
-                Logout
-              </Link>
+              <div className="flex justify-center items-center gap-3">
+                <Notifications />
+                <Link
+                  onClick={() => logoutUser()}
+                  to="/login"
+                  className="text-white text-md font-bold"
+                >
+                  Logout
+                </Link>
+              </div>
             </>
           )}
 
