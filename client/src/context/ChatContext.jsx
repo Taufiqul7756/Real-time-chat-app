@@ -125,10 +125,9 @@ export const ChatContextProvider = ({ children, user }) => {
         }
         setUserChats(response);
       }
-      //   setUserChatsLoading(false);
     };
     getUserChats();
-  }, [user]);
+  }, [user, notifications]);
 
   // GET MESSAGES
   useEffect(() => {
@@ -223,6 +222,26 @@ export const ChatContextProvider = ({ children, user }) => {
     []
   );
 
+  const markThisUserNotificationsAsRead = useCallback(
+    (thisUserNotifications, notifications) => {
+      const modifiedNotifications = notifications.map((element) => {
+        let notification;
+        thisUserNotifications.forEach((n) => {
+          if (n.senderId === element.senderId) {
+            notification = { ...n, isRead: true };
+          } else {
+            notification = element;
+          }
+        });
+
+        return notification;
+      });
+
+      setNotifications(modifiedNotifications);
+    },
+    []
+  );
+
   return (
     <ChatContext.Provider
       value={{
@@ -242,6 +261,7 @@ export const ChatContextProvider = ({ children, user }) => {
         allUsers,
         markAllNotificationsAsRead,
         markNotificationAsRead,
+        markThisUserNotificationsAsRead,
       }}
     >
       {children}
