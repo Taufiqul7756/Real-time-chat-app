@@ -27,6 +27,11 @@ io.on("connection", (socket) => {
     if (user) {
       console.log("sending message and notification");
       io.to(user.socketId).emit("getMessage", message);
+      io.to(user.socketId).emit("getNotification", {
+        senderId: message.senderId,
+        isRead: false,
+        date: new Date(),
+      });
     }
   });
 
