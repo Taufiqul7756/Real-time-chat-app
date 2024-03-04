@@ -58,6 +58,7 @@ const ChatBox = () => {
                   ? "bg-[#00bd9b] p-3 rounded-lg max-w-[70%] self align-self-end flex-grow-0"
                   : "bg-[#949d9b] p-3 rounded-lg max-w-[70%] self align-self-start flex-grow-0"
               }`}
+              ref={scroll}
             >
               <span>{message.text} </span>
               <span className="text-xs self-end font-normal mt-2">
