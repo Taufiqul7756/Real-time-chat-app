@@ -125,6 +125,7 @@ export const AuthContextProvider = ({ children }) => {
   const logoutUser = useCallback(() => {
     localStorage.removeItem("User");
     setUser(null);
+    window.alert("You have been logged out!");
   }, []);
 
   return (
