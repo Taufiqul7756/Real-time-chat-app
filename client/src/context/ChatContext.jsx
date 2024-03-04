@@ -23,11 +23,12 @@ export const ChatContextProvider = ({ children, user }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState("");
   const [notifications, setNotifications] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
 
-  console.log("onlineUsers: ", onlineUsers);
-  console.log("notifications: ", notifications);
+  // console.log("onlineUsers: ", onlineUsers);
+  // console.log("notifications: ", notifications);
 
-  console.log("messages-----:", messages);
+  // console.log("messages-----:", messages);
   // initial Socket
   useEffect(() => {
     const newSocket = io("http://localhost:8080");
@@ -105,6 +106,7 @@ export const ChatContextProvider = ({ children, user }) => {
         return !isChatCreated;
       });
       setPotentialChats(pChats);
+      setAllUsers(response);
     };
     getUsers();
   }, [userChats]);
@@ -203,6 +205,8 @@ export const ChatContextProvider = ({ children, user }) => {
         currentChat,
         sendTextMessage,
         onlineUsers,
+        notifications,
+        allUsers,
       }}
     >
       {children}
