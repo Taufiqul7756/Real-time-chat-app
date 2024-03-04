@@ -14,9 +14,9 @@ const UserChat = ({ chat, user }) => {
 
   const { onlineUsers } = useContext(ChatContext);
 
-  const isOnline = onlineUsers?.some(
-    (user) => user?.userId === recipientUser?._id
-  );
+  const isOnline =
+    Array.isArray(onlineUsers) &&
+    onlineUsers?.some((user) => user?.userId === recipientUser?._id);
 
   return (
     <Stack
