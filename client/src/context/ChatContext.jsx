@@ -190,6 +190,39 @@ export const ChatContextProvider = ({ children, user }) => {
     setUserChats((prev) => [...prev, response]);
   });
 
+  const markAllNotificationsAsRead = useCallback((notifications) => {
+    const modifiedNotifications = notifications.map((n) => {
+      return { ...n, isRead: true };
+    });
+    setNotifications(modifiedNotifications);
+  }, []);
+
+  const markNotificationAsRead = useCallback(
+    (n, userChats, user, notifications) => {
+      // find chat to open
+      const desiredChat = userChats.find((chat) => {
+        const chatMembers = [user._id, n.senderId];
+        const isDesiredChat = chat?.members.every((member) => {
+          return chatMembers.includes(member);
+        });
+
+        return isDesiredChat;
+      });
+
+      // mark notification as read
+      const modifiedNotifications = notifications.map((element) => {
+        if (n.senderId === element.senderId) {
+          return { ...n, isRead: true };
+        } else {
+          return element;
+        }
+      });
+      updateCurrentChat(desiredChat);
+      setNotifications(modifiedNotifications);
+    },
+    []
+  );
+
   return (
     <ChatContext.Provider
       value={{
@@ -207,6 +240,8 @@ export const ChatContextProvider = ({ children, user }) => {
         onlineUsers,
         notifications,
         allUsers,
+        markAllNotificationsAsRead,
+        markNotificationAsRead,
       }}
     >
       {children}
