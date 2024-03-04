@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
 import { unreadNotificationsFunc } from "../../utils/unreadNotifications";
+import moment from "moment";
 
 const Notifications = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ const Notifications = () => {
 
     return {
       ...n,
-      senderName: sender?.first_name,
+      senderName: sender?.first_name + " " + sender.last_name,
     };
   });
 
@@ -50,6 +51,26 @@ const Notifications = () => {
             <h3>Notifications</h3>
             <div className="mark-as-read">Mark all as read</div>
           </div>
+          {modifiedNotifications?.length === 0 ? (
+            <span className="notification"> No notifications Yet..</span>
+          ) : null}
+
+          {modifiedNotifications &&
+            modifiedNotifications.map((n, index) => {
+              return (
+                <div
+                  key={index}
+                  className={
+                    n.isRead ? "notification" : "notification not-read"
+                  }
+                >
+                  <span>{`${n.senderName} sent you a new message`}</span>
+                  <span className="notification-time">
+                    {moment(n.date).calendar()}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       ) : null}
     </div>
