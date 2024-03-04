@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -35,7 +36,7 @@ export const ChatContextProvider = ({ children, user }) => {
     };
   }, [user]);
 
-  // add online users
+  // set online users
   useEffect(() => {
     if (socket === null) return;
     socket.emit("AddNewUser", user?._id);
@@ -47,6 +48,27 @@ export const ChatContextProvider = ({ children, user }) => {
       socket.off("getOnlineUsers");
     };
   }, [socket]);
+
+  //send message to the server
+  useEffect(() => {
+    if (socket === null) return;
+    const recipientId = currentChat?.members?.find((id) => id !== user?._id);
+    socket.emit("sendMessage", { ...newMessage, recipientId });
+  }, [newMessage]);
+
+  // receive Messages
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("getMessage", (res) => {
+      if (currentChat?._id !== res.chatId) return;
+
+      setMessages((prev) => [...prev, res]);
+    });
+
+    return () => {
+      socket.off("getMessage");
+    };
+  }, [socket, currentChat]);
 
   // Get User
   useEffect(() => {
