@@ -10,8 +10,13 @@ import InputEmoji from "react-input-emoji";
 
 const ChatBox = () => {
   const { user } = useContext(AuthContext);
-  const { currentChat, messages, sendTextMessage, isMessagesLoading } =
-    useContext(ChatContext);
+  const {
+    currentChat,
+    messages,
+    sendTextMessage,
+    isMessagesLoading,
+    deleteMessage,
+  } = useContext(ChatContext);
   const { recipientUser } = useFetchRecipientUser(currentChat, user);
   const [textMessage, setTextMessage] = useState("");
   const scroll = useRef();
@@ -36,7 +41,7 @@ const ChatBox = () => {
     <Stack
       gap={4}
       className="  max-h-[calc(100vh-10rem)] min-w-[calc(100vh-rem)]
-      md:min-w-[calc(100vh-rem)] lg:min-w-[calc(100vh-10rem)] overflow-y-auto bg-gray-500 rounded-lg"
+      md:min-w-[calc(100vh-rem)] lg:min-w-[calc(100vh-10rem)] overflow-y-auto bg-[#eee9e9] rounded-lg"
     >
       <div className="flex items-center justify-center p-3 bg-gray-800">
         <strong>
@@ -53,16 +58,18 @@ const ChatBox = () => {
               key={index}
               className={`${
                 message?.senderId === user?._id
-                  ? "bg-[#00bd9b] p-3 rounded-lg max-w-[70%] self align-self-end flex-grow-0"
-                  : "bg-[#949d9b] p-3 rounded-lg max-w-[70%] self align-self-start flex-grow-0"
+                  ? "bg-[#4779c4] p-3 rounded-lg max-w-[70%] self align-self-end flex-grow-0"
+                  : "bg-[#c3c6c6] text-black p-3 rounded-lg max-w-[70%] self align-self-start flex-grow-0"
               }`}
               ref={scroll}
             >
               <span>{message.text} </span>
+
               <span className="text-xs self-end font-normal mt-2">
                 {" "}
                 {moment(message.createdAt).calendar()}{" "}
               </span>
+              <button onClick={() => deleteMessage(message._id)}>Delete</button>
             </Stack>
           ))}
       </Stack>

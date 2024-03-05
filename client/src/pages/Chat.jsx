@@ -23,18 +23,27 @@ const Chat = () => {
         <div className="flex flex-col md:flex-row">
           <div className="flex-grow-0 pe-3">
             <Stack direction="horizontal" gap={3} className="align-items-start">
-              <Stack className="messages-box flex-grow-8 pe-3" gap={3}>
+              <Stack
+                className="messages-box bg-[#444748]  flex-grow-8 pe-3"
+                gap={3}
+              >
                 {isUserChatsLoading && <p>Loading CHats...</p>}
 
                 {userChats?.map((chat, index) => {
                   return (
-                    <div key={index} onClick={() => updateCurrentChat(chat)}>
+                    <div
+                      className=""
+                      key={index}
+                      onClick={() => updateCurrentChat(chat)}
+                    >
                       <UserChat chat={chat} user={user} />
                     </div>
                   );
                 })}
               </Stack>
-              <ChatBox />
+              <div className="xl:ml-60 lg:ml-12 md:ml-10 ml-5">
+                <ChatBox />
+              </div>
             </Stack>
           </div>
         </div>

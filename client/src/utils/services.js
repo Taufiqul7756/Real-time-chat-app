@@ -44,4 +44,24 @@ export const getRequest = async (url) => {
   return data;
 };
 
-// status: response.status,
+// export const deleteRequest = async (url) => {
+//   const response = await fetch(url, {
+//     method: "DELETE",
+//   });
+
+//   const data = await response.json();
+
+//   if (!response.ok) {
+//     let message;
+
+//     if (data?.message) {
+//       message = data.message;
+//     } else {
+//       message = data;
+//     }
+
+//     return { error: true, status: response.status, message };
+//   }
+
+//   return data;
+// };

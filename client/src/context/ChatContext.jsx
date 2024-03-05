@@ -242,6 +242,50 @@ export const ChatContextProvider = ({ children, user }) => {
     []
   );
 
+  // delete message by messageId
+  const deleteMessage = useCallback(async (messageId) => {
+    console.log("clicked delete");
+    try {
+      // Make a request to delete the message
+      const response = await fetch(`${baseUrl}/messages/${messageId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete message");
+      }
+
+      // Remove the deleted message from the messages state
+      setMessages((prevMessages) =>
+        prevMessages.filter((message) => message._id !== messageId)
+      );
+    } catch (error) {
+      console.error("Error deleting message:", error.message);
+      // Handle error if needed
+    }
+  }, []);
+
+  // const deleteMessage = useCallback(async (messageId) => {
+  //   console.log("clicked delete");
+  //   console.log("messageId found:", messageId);
+  //   try {
+  //     // Make a request to delete the message using deleteRequest
+  //     const response = await deleteRequest(`${baseUrl}/messages/${messageId}`);
+
+  //     if (!response.ok) {
+  //       throw new Error("Failed to delete message");
+  //     }
+
+  //     // Remove the deleted message from the messages state
+  //     setMessages((prevMessages) =>
+  //       prevMessages.filter((message) => message._id !== messageId)
+  //     );
+  //   } catch (error) {
+  //     console.error("Error deleting message:", error.message);
+  //     // Handle error if needed
+  //   }
+  // }, []);
+
   return (
     <ChatContext.Provider
       value={{
@@ -262,6 +306,7 @@ export const ChatContextProvider = ({ children, user }) => {
         markAllNotificationsAsRead,
         markNotificationAsRead,
         markThisUserNotificationsAsRead,
+        deleteMessage,
       }}
     >
       {children}
