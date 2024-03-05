@@ -28,7 +28,7 @@ const NavBar = () => {
                 <Link
                   onClick={() => logoutUser()}
                   to="/login"
-                  className="text-[#808080] text-md font-bold"
+                  className="text-[#808080] text-md font-bold "
                 >
                   Logout
                 </Link>
@@ -38,13 +38,13 @@ const NavBar = () => {
 
           {!user && (
             <>
-              <Link to="/login" className="text-white text-md font-bold">
+              <Link to="/login" className="text-[#808080] text-md font-bold">
                 Login
               </Link>
 
               <Link
                 to="/register"
-                className="text-white text-md ml-5 font-bold"
+                className="text-[#808080] text-md ml-5 font-bold"
               >
                 Register
               </Link>

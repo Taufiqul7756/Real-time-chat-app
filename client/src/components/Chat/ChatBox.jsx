@@ -59,7 +59,7 @@ const ChatBox = () => {
               className={`${
                 message?.senderId === user?._id
                   ? "bg-[#4779c4] p-3 rounded-lg max-w-[70%] self align-self-end flex-grow-0 "
-                  : "bg-[#c3c6c6] text-black p-3 rounded-lg max-w-[70%] self align-self-start flex-grow-0"
+                  : "bg-[#c3c6c6] text-black p-3 rounded-lg max-w-[80%] self align-self-start flex-grow-0"
               }`}
               ref={scroll}
             >
