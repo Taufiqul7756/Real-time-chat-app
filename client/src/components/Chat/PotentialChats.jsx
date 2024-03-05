@@ -15,10 +15,10 @@ const PotentialChats = () => {
             return (
               <div
                 key={index}
-                className="single-user"
+                className="bg-[#2edde7] cursor-pointer p-2 rounded-lg mr-1 relative"
                 onClick={() => createChat(user._id, u._id)}
               >
-                {u.first_name} {u.last_name}
+                {u.first_name}
                 <span
                   className={
                     Array.isArray(onlineUsers) &&

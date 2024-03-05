@@ -13,7 +13,7 @@ const AllUsers = () => {
         {potentialChats &&
           potentialChats.map((receiver, index) => (
             <div
-              className="single-user"
+              className="bg-[#2edde7] cursor-pointer p-2 rounded-lg mr-1 relative"
               key={index}
               onClick={() => createChat(user._id, receiver._id)}
             >
