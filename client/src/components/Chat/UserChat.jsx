@@ -74,7 +74,9 @@ const UserChat = ({ chat, user }) => {
         </div>
         <div
           className={
-            thisUserNotifications?.length > 0 ? "this-user-notifications" : ""
+            thisUserNotifications?.length > 0
+              ? "flex items-center justify-center bg-blue-600 h-4 w-4 text-white text-sm font-bold rounded-full"
+              : ""
           }
         >
           {thisUserNotifications?.length > 0

@@ -7,7 +7,7 @@
 body {
   color: white;
   font-family: "Nunito", sans-serif;
-  background: rgb(48, 42, 55);
+  background: rgb(76, 76, 78);
 }
 
 /* All users */
@@ -68,7 +68,7 @@ body {
 }
 
 .messages-box {
-  height: 85vh;
+  height: 75vh;
 }
 
 /* Chat Header */
@@ -166,7 +166,7 @@ body {
   font-size: 14px;
   margin: 1rem 0;
   padding-bottom: 0.2rem;
-  border-bottom: 1px solid rgb(207, 207, 207);
+  border-bottom: 1px solid rgb(32, 29, 29);
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -185,24 +185,24 @@ body {
 
 .notification-count {
   display: flex;
-  background: #00bd9b;
-  height: 25px;
-  width: 25px;
+  background: #4043c7;
+  height: 15px;
+  width: 15px;
   font-size: 14px;
   font-weight: 700;
   border-radius: 50%;
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: -10px;
-  right: -15px;
+  top: -8px;
+  right: -6px;
 }
 
 .this-user-notifications {
   display: flex;
-  background: #00bd9b;
-  height: 20px;
-  width: 20px;
+  background: #4043c7;
+  height: 18px;
+  width: 18px;
   font-size: 12px;
   font-weight: 700;
   border-radius: 50%;

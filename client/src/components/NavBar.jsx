@@ -7,17 +7,17 @@ const NavBar = () => {
   const { user, logoutUser } = useContext(AuthContext);
 
   return (
-    <nav className="bg-gray-800 mb-4 h-16">
+    <nav className="bg-[#ffffff] mb-4 h-16">
       <div className="container mx-auto flex items-center justify-between h-full px-4">
         <h2>
-          <Link to="/" className="text-white text-lg font-bold">
-            Real time CHat App
+          <Link to="/" className="text-[#808080] text-lg font-bold">
+            Real time Chat App
           </Link>
         </h2>
 
-        <span className="text-yellow-700">
+        <span className="text-green-500 font-bold">
           {" "}
-          Logged in as {user?.first_name} {user?.last_name}
+          {user?.first_name} {user?.last_name}
         </span>
 
         <div className="">
@@ -28,7 +28,7 @@ const NavBar = () => {
                 <Link
                   onClick={() => logoutUser()}
                   to="/login"
-                  className="text-white text-md font-bold"
+                  className="text-[#808080] text-md font-bold"
                 >
                   Logout
                 </Link>
